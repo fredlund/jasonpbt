@@ -1,0 +1,50 @@
+Errors/difficulties encountered in the domestic robot example
+=============================================================
+
+1. sipCount was set to N (N being the number of sips in a beer),
+   instead of sipCount += N (if there was already a beer).
+   [HouseModel.java: handInBeer]
+
+2. the limit checking in robot.asl was not consistent with the message
+   given. Change from > Limit to >= Limit.
+
+3. It is a bit difficult to program with belief changes.
+   For example, when a user at the limit asks for two beers,
+   the message (change) happens only once.
+   I guess we could instead check for presence in the belief base; the question
+   though is how an owner should act on such things (in a gui).
+   We could argue that the model is wrong.
+   On the other hand the owner has the following code:
+
++msg(M)[source(Ag)] : true
+   <- .print("Message from ",Ag,": ",M);
+      -msg(M).
+
+   Could there be a race condition there? That is, between that rule and
+   a desire, not programmed in owner_asl, to always want a beer.
+   
+   But I guess the events are queued, so we always end up treating the
+   +msg event before the next message arrives, so we will always remove
+   one first. Not sure what is the correct story...
+   
+I guess it is a larger issue to do with treating behavioural facts, i.e.,
+when they are deleted etc. The treatment of messages as facts risks collapsing
+multiple messages into one fact.
+
+I guess we do:
+set equality for events, and then delete received received fact events from
+the database. This way delayed events will not get deleted by error.
+
+Discussion
+
+- We can get test goals from other agents, and achieve goals from other agents.
+
+- Jason is too weak as a programming language to write its own stdlib,
+or to model the environment in Jason.
+
+- If is missing.
+But there is one.
+
+- Integers are missing.
+
+

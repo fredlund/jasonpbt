@@ -1,0 +1,16 @@
+/* Jason Project
+
+   See Prometheus specification in doc folder
+
+*/
+
+MAS domestic_robot {
+    infrastructure: Centralised
+    environment: HouseEnv(nogui) // use "gui" as parameter to show the GUI
+    agents: robot;
+            owner;
+            supermarket;
+    classpath: "/home/fred/tools_alt/lib/erlang/lib/java_erlang-1.3.1/priv/JavaErlang.jar";
+           "/home/fred/tools_alt/lib/erlang/lib/jinterface-1.8/priv/OtpErlang.jar";
+}
+

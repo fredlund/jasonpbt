@@ -1,0 +1,3 @@
+$ erl -sname erlang_mas_connection -pa ebin
+
+> domestic:check().
